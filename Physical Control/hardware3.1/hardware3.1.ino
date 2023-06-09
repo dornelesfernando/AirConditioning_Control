@@ -23,10 +23,11 @@
 #include <DallasTemperature.h>
 
 //Definição das variáveis e suas respectivas portas responsáveis pelos relés
-#define evaporador 23   //Relé 1
-#define velocidade1 19  //Relé 2
-#define velocidade2 18  //Relé 3
-#define velocidade3 17  //Relé 4
+#define estado 33  //Relé 1
+#define ligaCompressor 23   //Relé 2
+#define velocidade1 19  //Relé 3
+#define velocidade2 18  //Relé 4
+#define velocidade3 17  //Relé 5
 
 //Definição das variáveis e suas respectivas portas responsáveis pelos push-buttons
 #define botao0_OnQuente 32
@@ -50,8 +51,9 @@ int btsEstado4 = LOW;  //Status do botão botao4_v3
 
 int estadoRele1 = LOW;
 int estadoRele2 = LOW;
-int estadoRele3 = LOW; 
-int estadoRele4 = LOW;
+int estadoRele3 = LOW;
+int estadoRele4 = LOW; 
+int estadoRele5 = LOW;
 
 int temperaturaDesejadaFrio = 23;  
 int temperaturaDesejadaQuente = 25;
@@ -91,7 +93,8 @@ void setup() {
   lcd.init();
   lcd.backlight();
 
-  pinMode(evaporador, OUTPUT);
+  pinMode(estado, OUTPUT);
+  pinMode(ligaCompressor, OUTPUT);
   pinMode(velocidade1, OUTPUT);
   pinMode(velocidade2, OUTPUT);
   pinMode(velocidade3, OUTPUT);
@@ -123,12 +126,10 @@ void loop() {
         /*int*/ controleLcd1 = 0;
     }
 
-    
-
     while (ligado == true)  // PARTE GERAL DO CÓDIGO
     {
         if(veloPadrao == 0){
-            estadoRele2 = !estadoRele2;  //Define a velocidade 1 como padrão
+            estadoRele3 = !estadoRele3;  //Define a velocidade 1 como padrão
             veloPadrao = 1;
         }
       
@@ -164,18 +165,18 @@ void loop() {
           btsEstado2 = digitalRead(botao2_v1);
         if (btsEstado2 == HIGH)
         {
-            if(estadoRele2 == LOW)
+            if(estadoRele3 == LOW)
             {
-                if (estadoRele3 == HIGH)
-                {
-                    estadoRele3 = !estadoRele3;
-                }
-            
                 if (estadoRele4 == HIGH)
                 {
-                    estadoRele4 = !estadoRele4;
+                  estadoRele4 = !estadoRele4;
                 }
-                estadoRele2 = !estadoRele2;
+            
+                if (estadoRele5 == HIGH)
+                {
+                  estadoRele5 = !estadoRele5;
+                }
+                estadoRele3 = !estadoRele3;
                 //delay(200);
             }
         }
@@ -183,19 +184,19 @@ void loop() {
           btsEstado3 = digitalRead(botao3_v2);
         if (btsEstado3 == HIGH)
         {
-            if(estadoRele3 == LOW)
+            if(estadoRele4 == LOW)
             {
-                if (estadoRele2 == HIGH)
+                if (estadoRele3 == HIGH)
                 {
-                estadoRele2 = !estadoRele2;
-                }
-        
-                if (estadoRele4 == HIGH)
-                {
-                estadoRele4 = !estadoRele4;
-                }
-        
                 estadoRele3 = !estadoRele3;
+                }
+        
+                if (estadoRele5 == HIGH)
+                {
+                estadoRele5 = !estadoRele5;
+                }
+        
+                estadoRele4 = !estadoRele4;
                 //delay(200);
             }
         }
@@ -203,31 +204,35 @@ void loop() {
           btsEstado4 = digitalRead(botao4_v3);
         if (btsEstado4 == HIGH)
         {
-            if(estadoRele4 == LOW) 
+            if(estadoRele5 == LOW) 
             {
-                if (estadoRele2 == HIGH)
-                {
-                    estadoRele2 = !estadoRele2;
-                }
-        
                 if (estadoRele3 == HIGH)
                 {
                     estadoRele3 = !estadoRele3;
                 }
+        
+                if (estadoRele4 == HIGH)
+                {
+                    estadoRele4 = !estadoRele4;
+                }
 
-                estadoRele4 = !estadoRele4;
+                estadoRele5 = !estadoRele5;
                 //delay(200);
             }
         }
 
-        /*if (frio == true)
+        if (frio == true)
         {
+            estadoRele1 = LOW;
+
             if(temp1_evaporador <= limiteEvaporador || temp2_ambiente <= temperaturaDesejadaFrio)  
             {
                 if(estadoRele2 == HIGH){
                     estadoRele2 = !estadoRele2;
+                    somaDiferencaAmbienteFrio = somaDiferencaAmbienteFrio + controleDiferenca;
                 }
             }
+
 
             if (temp2_ambiente > somaDiferencaAmbienteFrio)
             {
@@ -238,11 +243,13 @@ void loop() {
                     } 
                 }
             }
-        }*/
-
-        /*if (quente == true)
+        }
+  
+        if (quente == true)
         {
-            if(temp1_evaporador <= limiteEvaporador || temp2_ambiente >= temperaturaDesejadaQuente)  
+            estadoRele1 = HIGH;
+
+            /*if(temp1_evaporador <= limiteEvaporador || temp2_ambiente >= temperaturaDesejadaQuente)  
             {
                 if(estadoRele2 == HIGH){
                     estadoRele2 = !estadoRele2;
@@ -257,25 +264,29 @@ void loop() {
                         estadoRele2 = !estadoRele2;
                     } 
                 }
-            }
-        }*/
+            }*/
+        }
         
-        digitalWrite(evaporador, estadoRele1);
-        digitalWrite(velocidade1, estadoRele2);
-        digitalWrite(velocidade2, estadoRele3);
-        digitalWrite(velocidade3, estadoRele4);
+        digitalWrite(estado, estadoRele1);
+        digitalWrite(velocidade1, estadoRele3);
+        digitalWrite(velocidade2, estadoRele4);
+        digitalWrite(velocidade3, estadoRele5);
+        digitalWrite(ligaCompressor, estadoRele2);
 
         varLigaDesliga();
         inversao();     
+        Serial.println(somaDiferencaAmbienteFrio);
     }
 
+    digitalWrite(estado, LOW);
     digitalWrite(velocidade1, LOW);
     digitalWrite(velocidade2, LOW);
     digitalWrite(velocidade3, LOW);
-    digitalWrite(evaporador, LOW);
+    digitalWrite(ligaCompressor, LOW);
 
     varLigaDesliga();
     inversao();
+    Serial.println(somaDiferencaAmbienteFrio);
 }
 
 void varLigaDesliga(){
@@ -336,7 +347,8 @@ void varLigaDesliga(){
 
     guardaBotaoApertado = 2;  //Define que o botão liga_frio foi pressionado
     quente = false;  //Desliga ou mantém Ligado o estado quente
-    /*somaDiferencaAmbienteFrio = somaDiferencaAmbienteFrio - controleDiferenca;*/
+    somaDiferencaAmbienteFrio = somaDiferencaAmbienteFrio - controleDiferenca;
+    Serial.println(somaDiferencaAmbienteFrio);
     //delay(200);
   }
 }
