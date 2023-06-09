@@ -21,10 +21,10 @@
 #define botao5_v3 27  //Botão responsável por ligar o ventilador interno na velocidade 3
 
 //Definição da variável e sua respectiva porta responsável pelo sensor de temperartura 18b20
-#define sensorTemperatura 14 
+#define sensorTemperatura 14
 
 //Variáveis responsaveis por cuidar do estado do compressor
-bool quente = false; 
+bool quente = false;
 bool frio = false;
 
 bool ligado = false;  //Variável que indica se o sistema está ou não ligado
@@ -48,7 +48,7 @@ int limiteEvaporador = 5;  //Dá um limite de temperatura que o evaporador estar
 
 //Variáveis utilizadas para evitar que um relé fique ativando e desativando rapidamente, utilizando o conceito de histerese
 int controleDiferenca = 2;
-int controleLimiteEvaporador = 5; 
+int controleLimiteEvaporador = 5;
 int somaDiferencaAmbienteQuente = temperaturaDesejadaQuente - controleDiferenca;
 int somaDiferencaAmbienteFrio = temperaturaDesejadaFrio + controleDiferenca;
 int somaDiferencaLimiteEvaporador = limiteEvaporador + controleLimiteEvaporador;
@@ -59,14 +59,14 @@ int controleLcd = 0;
 int controleLcd1 = 0;
 int esperaInicio = 0;
 bool auxiliarDeInversao = false;
-int guardaBotaoApertado = 0; 
+int guardaBotaoApertado = 0;
 /*
-    A variável guardaBotaoApertado é uma variável que serve para que aconteça inversão
-    de estados sem ocorrer o desligamento do sistema de forma indesejada
+  A variável guardaBotaoApertado é uma variável que serve para que aconteça inversão
+  de estados sem ocorrer o desligamento do sistema de forma indesejada
 
-    0 --> Neutro
-    1 --> O Botão anteriormente pressionado foi o botão liga_quente
-    2 --> O Botão anteriormente pressionado foi o botão liga_frio
+  0 --> Neutro
+  1 --> O Botão anteriormente pressionado foi o botão liga_quente
+  2 --> O Botão anteriormente pressionado foi o botão liga_frio
 */
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);  //Biblioteca lcd(endereço I2C, Linhas, Colunas)
@@ -87,7 +87,7 @@ void setup() {
   pinMode(velocidade2, OUTPUT);
   pinMode(velocidade3, OUTPUT);
 
-  //Define os pinos de entrada  
+  //Define os pinos de entrada
   pinMode(botao1_OnQuente, INPUT_PULLUP);
   pinMode(botao2_OnFrio, INPUT_PULLUP);
   pinMode(botao3_v1, INPUT_PULLUP);
@@ -107,7 +107,7 @@ void loop() {
     esperaInicio = 1;  //Definindo como 1 para indicar que o processo foi concluído
   }
 
-  if(controleLcd == 0)
+  if (controleLcd == 0)
   {
     lcd.clear();
     lcd.print("Desligado");
@@ -118,22 +118,22 @@ void loop() {
 
   while (ligado)  //Loop principal enquanto o arCondicionado está ligado
   {
-    if(veloPadrao == 0)  //Define a velocidade 1 como padrão
+    if (veloPadrao == 0) //Define a velocidade 1 como padrão
     {
-      estadoRele3 = !estadoRele3;  
+      estadoRele3 = !estadoRele3;
       veloPadrao = 1;  //Definindo como 1 para indicar que o processo foi concluído
     }
-    
-    if(controleLcd1 == 0)  //Organiza as informações a serem apresentadas no LCD
+
+    if (controleLcd1 == 0) //Organiza as informações a serem apresentadas no LCD
     {
       lcd.clear();
-      lcd.setCursor(0,0);
+      lcd.setCursor(0, 0);
       lcd.print("Evaporador:");
-      lcd.setCursor(0,1);
+      lcd.setCursor(0, 1);
       lcd.print("Ambiente:");
       controleLcd1 = 1;  //Definindo como 1 para indicar que o processo foi concluído
     }
-    
+
     //Lê as temperaturas dos sensores
     sensors.requestTemperatures();
 
@@ -154,16 +154,16 @@ void loop() {
     lcd.print(temp2_ambiente);
 
     //Condições de ativação e desativação das velocidaddes fazendo que apenas 1 velocidade esteja ativa por vez
-      btEstado3 = digitalRead(botao3_v1);
+    btEstado3 = digitalRead(botao3_v1);
     if (btEstado3 == HIGH)
     {
-      if(estadoRele3 == LOW)
+      if (estadoRele3 == LOW)
       {
         if (estadoRele4 == HIGH)
         {
           estadoRele4 = !estadoRele4;
         }
-    
+
         if (estadoRele5 == HIGH)
         {
           estadoRele5 = !estadoRele5;
@@ -173,10 +173,10 @@ void loop() {
       }
     }
 
-      btEstado4 = digitalRead(botao4_v2);
+    btEstado4 = digitalRead(botao4_v2);
     if (btEstado4 == HIGH)
     {
-      if(estadoRele4 == LOW)
+      if (estadoRele4 == LOW)
       {
         if (estadoRele3 == HIGH)
         {
@@ -193,10 +193,10 @@ void loop() {
       }
     }
 
-      btEstado5 = digitalRead(botao5_v3);
+    btEstado5 = digitalRead(botao5_v3);
     if (btEstado5 == HIGH)
     {
-      if(estadoRele5 == LOW) 
+      if (estadoRele5 == LOW)
       {
         if (estadoRele3 == HIGH)
         {
@@ -214,29 +214,29 @@ void loop() {
     }
 
     //Condições referente ao estado no qual o compressor se encontra
-    if (frio) 
+    if (frio)
     {
       estadoRele1 = LOW;  //liga o compressor no estado frio
 
       //Condições de desativação do compressor
-      if(temp1_evaporador <= limiteEvaporador || temp2_ambiente <= temperaturaDesejadaFrio) 
+      if (temp1_evaporador <= limiteEvaporador || temp2_ambiente <= temperaturaDesejadaFrio)
       {
-        if(estadoRele2 == HIGH)
+        if (estadoRele2 == HIGH)
         {
           estadoRele2 = !estadoRele2;
           somaDiferencaAmbienteFrio = temperaturaDesejadaFrio + controleDiferenca;  //Ativa o conceito de Histerese
         }
       }
-      
+
       //Condições de ativação do compressor
       if (temp2_ambiente > somaDiferencaAmbienteFrio)
       {
-        if(temp1_evaporador > somaDiferencaLimiteEvaporador)
+        if (temp1_evaporador > somaDiferencaLimiteEvaporador)
         {
-          if(estadoRele2 == LOW)
+          if (estadoRele2 == LOW)
           {
             estadoRele2 = !estadoRele2;
-          } 
+          }
         }
       }
     }
@@ -246,23 +246,23 @@ void loop() {
       estadoRele1 = HIGH;  //liga o compressor no estado quente
 
       //Condição de desativação do compressor
-      if(temp2_ambiente >= temperaturaDesejadaQuente)  
+      if (temp2_ambiente >= temperaturaDesejadaQuente)
       {
-        if(estadoRele2 == HIGH){
+        if (estadoRele2 == HIGH) {
           estadoRele2 = !estadoRele2;
           somaDiferencaAmbienteQuente = temperaturaDesejadaQuente - controleDiferenca;  //Ativa o conceito de Histerese
         }
       }
-    
+
       //Condição de ativação do compressor
       if (temp2_ambiente < somaDiferencaAmbienteQuente)
       {
-        if(estadoRele2 == LOW){
+        if (estadoRele2 == LOW) {
           estadoRele2 = !estadoRele2;
-        } 
+        }
       }
     }
-    
+
     //Atualização do estado dos pinos de saída
     digitalWrite(estado, estadoRele1);
     digitalWrite(velocidade1, estadoRele3);
@@ -285,27 +285,27 @@ void loop() {
   inversao();
 }
 
-void varLigaDesliga()  //Função utilizada para controlar a ativação e desativação do sistema 
+void varLigaDesliga()  //Função utilizada para controlar a ativação e desativação do sistema
 {
   btEstado1 = digitalRead(botao1_OnQuente);
   if (btEstado1 == HIGH)
   {
     if (guardaBotaoApertado == 1)
     {
-      if(ligado){
+      if (ligado) {
         auxiliarDeInversao = true;  //Ativa a condição para a Função de intervalo
       }
-        ligado = !ligado;  //Desliga o sistema
-        quente = false;
+      ligado = !ligado;  //Desliga o sistema
+      quente = false;
     }
-    else{
-      if(guardaBotaoApertado == 0)
+    else {
+      if (guardaBotaoApertado == 0)
       {
         ligado = !ligado;  //Liga o sistema
         quente = true;  //Define o estado do compressor como quente
       }
-      else{
-        if(ligado)
+      else {
+        if (ligado)
         {
           auxiliarDeInversao = true;
         }
@@ -322,27 +322,27 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
   btEstado2 = digitalRead(botao2_OnFrio);
   if (btEstado2 == HIGH)
   {
-    if (guardaBotaoApertado == 2)  
+    if (guardaBotaoApertado == 2)
     {
-      if(ligado)
+      if (ligado)
       {
         auxiliarDeInversao = true;  //Ativa a condição para a Função de intervalo
       }
-      
+
       ligado = !ligado;  //Desliga o sisema
       frio = false;
     }
-    else{
-      if(guardaBotaoApertado == 0)
+    else {
+      if (guardaBotaoApertado == 0)
       {
         ligado = !ligado;  //Liga o sisema
         frio = true;  //Define o estado do compressor como frio
       }
       else
       {
-        if(ligado)
+        if (ligado)
         {
-           auxiliarDeInversao = true;
+          auxiliarDeInversao = true;
         }
         frio = true;
       }
@@ -356,12 +356,12 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
 }
 
 void inversao()  //Função de Intervalo usada para que não haja a ativação e desativação
-{                //do compressor em um curto periodo de tempo para evitar possíveis danos
+{ //do compressor em um curto periodo de tempo para evitar possíveis danos
 
   if (auxiliarDeInversao)
   {
     digitalWrite(ligaCompressor, LOW);
-    
+
     unsigned long tempoEsperaInversao = 60000; //1 minuto
     unsigned long tempoInicialInversao = millis();
     unsigned int contagemRegressiva = 60;
@@ -373,23 +373,23 @@ void inversao()  //Função de Intervalo usada para que não haja a ativação e
     if (ligado)
     {
       lcd.clear();
-      lcd.setCursor(0,0);
+      lcd.setCursor(0, 0);
       lcd.print("Invertend Estado");
     }
 
     if (ligado == false)
     {
       lcd.clear();
-      lcd.setCursor(0,0);
+      lcd.setCursor(0, 0);
       lcd.print("Desligando");
     }
 
-    lcd.setCursor(0,1);
+    lcd.setCursor(0, 1);
     lcd.print("Aguarde: ");
 
-    while (millis() - tempoInicialInversao < tempoEsperaInversao) 
+    while (millis() - tempoInicialInversao < tempoEsperaInversao)
     {
-        unsigned int segundosRestantes = (tempoEsperaInversao - (millis() - tempoInicialInversao)) / 1000;
+      unsigned int segundosRestantes = (tempoEsperaInversao - (millis() - tempoInicialInversao)) / 1000;
       if (segundosRestantes != contagemRegressiva)
       {
         contagemRegressiva = segundosRestantes;
