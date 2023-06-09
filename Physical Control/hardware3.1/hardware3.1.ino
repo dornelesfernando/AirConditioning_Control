@@ -123,7 +123,7 @@ void loop() {
         /*int*/ controleLcd1 = 0;
     }
 
-    varLigaDesliga();
+    
 
     while (ligado == true)  // PARTE GERAL DO CÓDIGO
     {
@@ -240,7 +240,7 @@ void loop() {
             }
         }*/
 
-        /*if (calor == true)
+        /*if (quente == true)
         {
             if(temp1_evaporador <= limiteEvaporador || temp2_ambiente >= temperaturaDesejadaQuente)  
             {
@@ -274,6 +274,7 @@ void loop() {
     digitalWrite(velocidade3, LOW);
     digitalWrite(evaporador, LOW);
 
+    varLigaDesliga();
     inversao();
 }
 
@@ -283,9 +284,11 @@ void varLigaDesliga(){
   {
     if (guardaBotaoApertado == 1)
     {
+      if(ligado == true){
+        auxiliarDeInversao = true;
+      }
         ligado = !ligado;
         quente = false;
-        auxiliarDeInversao = true;
     }
     else{
       if(guardaBotaoApertado == 0){
@@ -293,8 +296,10 @@ void varLigaDesliga(){
         quente = true;
       }
       else{
+        if(ligado == true){
+          auxiliarDeInversao = true;
+        }
         quente = true;
-        auxiliarDeInversao = true;
       }
     }
 
@@ -309,9 +314,12 @@ void varLigaDesliga(){
   {
     if (guardaBotaoApertado == 2)
     {
+      if(ligado == true){
+        auxiliarDeInversao = true;
+      }
+      
         ligado = !ligado;
         frio = false;
-        auxiliarDeInversao = true;
     }
     else{
       if(guardaBotaoApertado == 0){
@@ -319,8 +327,10 @@ void varLigaDesliga(){
         frio = true;
       }
       else{
+        if(ligado == true){
+           auxiliarDeInversao = true;
+        }
         frio = true;
-        auxiliarDeInversao = true;
       }
     }
 
@@ -337,11 +347,28 @@ void inversao(){
         unsigned long tempoInicialInversao = millis();
         unsigned int contagemRegressiva = 10;
 
+        auxiliarDeInversao = false;
+        controleLcd = 0;
+        controleLcd1 = 0;
+
+      if (ligado == true)
+      {
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("Desligado");
+        lcd.print("Invertend Estado");
         lcd.setCursor(0,1);
         lcd.print("Aguarde: ");
+      }
+
+      if (ligado == false)
+      {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Desligando");
+        lcd.setCursor(0,1);
+        lcd.print("Aguarde: ");
+      }
+      
         while (millis() - tempoInicialInversao < tempoEsperaInversao) 
         {
           unsigned int segundosRestantes = (tempoEsperaInversao - (millis() - tempoInicialInversao)) / 1000;
@@ -352,8 +379,5 @@ void inversao(){
             lcd.print(contagemRegressiva);
           }
         }
-
-        auxiliarDeInversao = false;
-        controleLcd = 0;
     }
 }
