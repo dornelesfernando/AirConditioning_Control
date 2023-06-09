@@ -169,12 +169,12 @@ void loop() {
             {
                 if (estadoRele4 == HIGH)
                 {
-                  estadoRele4 = !estadoRele4;
+                    estadoRele4 = !estadoRele4;
                 }
             
                 if (estadoRele5 == HIGH)
                 {
-                  estadoRele5 = !estadoRele5;
+                    estadoRele5 = !estadoRele5;
                 }
                 estadoRele3 = !estadoRele3;
                 //delay(200);
@@ -229,7 +229,7 @@ void loop() {
             {
                 if(estadoRele2 == HIGH){
                     estadoRele2 = !estadoRele2;
-                    somaDiferencaAmbienteFrio = somaDiferencaAmbienteFrio + controleDiferenca;
+                    somaDiferencaAmbienteFrio = temperaturaDesejadaFrio + controleDiferenca;
                 }
             }
 
