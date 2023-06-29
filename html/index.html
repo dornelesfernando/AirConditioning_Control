@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Controle Ar Condicionado</title>
+</head>
+<body>
+    <div class="pagina-wrapper">
+        <form class="estrutura">
+            <div class="display">
+                a
+            </div>
+            <div class="wrapper-ligaDesliga">
+                <a href="/ligar">Ligar/Desligar</a><br>
+            </div>
+            <div class="temperatura">
+                <a href="/mais">Aumentar Temperatura</a><br>
+                <a href="/menos">Diminuir Temperatura</a><br>
+            </div>
+            <div class="velocidades">
+
+                <input type="radio" name="radio" id="radio1" onchange="redirecionar()">
+                <label for="radio1">Velocidade 01</label><br>
+
+                <input type="radio" name="radio" id="radio2" onchange="redirecionar()">
+                <label for="radio2">Velocidade 02</label><br>  
+
+                <input type="radio" name="radio" id="radio3" onchange="redirecionar()">
+                <label for="radio3">Velocidade 03</label>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function redirecionar(){
+            var opcaoSelecionada = document.querySelector('input[name="radio"]:checked').id;
+            var url;
+
+            switch (opcaoSelecionada) {
+                case "radio1":
+                    url = "http://192.168.0.31/v1";
+                  break;
+
+                case "radio2":
+                    url = "http://192.168.0.31/v2";
+                  break;
+
+                case "radio3":
+                    url = "http://192.168.0.31/v3";
+                  break;
+            
+                default:
+                url = "http://192.168.0.31";
+            }
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
