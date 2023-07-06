@@ -149,7 +149,7 @@ void loop() {
             client.print("<meta charset=\"UTF-8\">");
 
             // configuração de estilo do site
-            client.print("<style type=\"text/css\"> body{background: #cccccc;font-family: Arial, Helvetica, sans-serif;}.pagina-wrapper {padding-top: 20px;}.estrutura {display: block;max-width: 250px;max-height: 500px;height: 500px;margin: 0 auto;background-color: #FFF;box-shadow: 0px 0px 10px #2e2e2e;border-radius: 5px;}.display {background-color: #a83737;justify-content: center;align-items: center;height: 150px;display: flex;}.display #number{padding-top: 50px;font-size: 100px;padding-left: 24px;}.info{background-color: #a83737;height: 40px;padding-left: 10px;}.info #info1{margin: 0;font-weight: normal;font-size: 14px;}.wrapper-ligaDesliga {background-color: #1671bd;height: 80px;}.quente{margin-top: 10px;display: flex;  margin-left: 20px;float: left;  }.frio{margin-top: 10px;margin-right: 20px;float: right;display: flex;}.icon{height: 60px;width: 60px;}.temperatura{background-color: #e7098b;height: 80px;}.aumentar{margin-top: 27.5px;display: flex;  margin-left:  40px;float: left; }.textTemp{position: absolute;margin-top: 32px;margin-left: 95px;font-size: 16px;}.diminuir{margin-top: 27.5px;margin-right: 40px;float: right;display: flex;}.icon2{height: 25px;width: 25px;}.velocidades{display: block;background-color: #1cff4d;height: 150px;}.radio{margin-top: 27px;margin-left: 20px;}</style>");
+            client.print("<style type=\"text/css\"> body{background: #cccccc;font-family: Arial, Helvetica, sans-serif;}.pagina-wrapper {padding-top: 20px;}.estrutura {display: block;max-width: 250px;max-height: 500px;height: 500px;margin: 0 auto;background-color: #FFF;box-shadow: 0px 0px 10px #2e2e2e;border-radius: 5px;}.display {background-color: #a83737;justify-content: center;align-items: center;height: 150px;display: flex;}.display #number{padding-top: 50px;font-size: 100px;padding-left: 24px;}.info{background-color: #a83737;height: 40px;padding-left: 10px;}.info #info1{margin: 0;font-weight: normal;font-size: 14px;}.wrapper-ligaDesliga {background-color: #1671bd;height: 80px;font-size: 50px;}.quente{margin-top: 5px;display: flex;  margin-left: 20px;float: left;  }.frio{margin-top: 5px;margin-right: 20px;float: right;display: flex;}a{text-decoration: none;color: #000;}.temperatura{background-color: #e7098b;height: 80px;font-size: 60px;}.aumentar{margin-top: 5px;margin-left: 30px;float: left; }.textTemp{position: absolute;margin-top: 32px;margin-left: 100px;font-size: 16px;}.diminuir{margin-right: 45px;float: right;}.icon2{height: 25px;width: 25px;}.velocidades{display: block;background-color: #1cff4d;height: 150px;font-size: 16px;}.radio{margin-top: 27px;margin-left: 20px;}</style>");
 
             client.print("<title>Controle Ar Condicionado</title>");
             client.print("</head>");
@@ -168,33 +168,33 @@ void loop() {
             client.print("</div>");
             client.print("<div class=\"wrapper-ligaDesliga\">");
             client.print("<div class=\"quente\">");
-            client.print("<a href=\"/quente\"><img class=\"icon\" src=\"img/54409.png\" alt=\"quente\"></a><br>");
+            client.print("<a href=\"/quente\">🔥</a><br>");
             client.print("</div>");
             client.print("<div class=\"frio\">");
-            client.print("<a href=\"/frio\"><img class=\"icon\" src=\"img/106057.png\" alt=\"frio\"></a><br>");
+            client.print("<a href=\"/frio\">❄️</a><br>");
             client.print("</div>");
             client.print("</div>");
             client.print("<div class=\"temperatura\">");
             client.print("<div class=\"aumentar\">");
-            client.print("<a href=\"/mais\"><img class=\"icon2\" src=\"img/mais.png\" alt=\"aumentar\"></a><br>");
+            client.print("<a href=\"/mais\">+</a><br>");
             client.print("</div>");
             client.print("<div class=\"diminuir\">");
-            client.print("<a href=\"/menos\"><img class=\"icon2\" src=\"img/menos.png\" alt=\"diminuir\"></a><br>");
+            client.print("<a href=\"/menos\">-</a><br>");
             client.print("</div>");
             client.print("<div class=\"textTemp\">Temp.</div>");
             client.print("</div>");
 
             client.print("<div class=\"velocidades\">");
             client.print("<a href=\"/v1\">");
-                        
-           if (radio1 == 1)
+
+            if (radio1 == 1)
             {
               client.print("<input  class=\"radio\" type=\"radio\" name=\"radio\" id=\"radio1\" onchange=\"redirecionar()\" checked>");
             } else {
               client.print("<input  class=\"radio\" type=\"radio\" name=\"radio\" id=\"radio1\" onchange=\"redirecionar()\">");
             }
             client.print("Velocidade 01");
-            client.print("</a>");
+            client.print("</a></br>");
 
             client.print("<a href=\"/v2\">");
             if (radio2 == 1)
@@ -204,7 +204,7 @@ void loop() {
               client.print("<input class=\"radio\" type=\"radio\" name=\"radio\" id=\"radio2\" onchange=\"redirecionar()\">");
             }
             client.print("Velocidade 02");
-            client.print("</a>");
+            client.print("</a></br>");
 
             client.print("<a href=\"/v3\">");
             if (radio3 == 1)
