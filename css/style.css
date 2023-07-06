@@ -8,32 +8,104 @@ body{
 }
 
 .estrutura {
+    display: block;
     max-width: 250px;
-    max-height: 500px;
-    height: 500px;
-    margin: 0 auto;
-    background-color: #FFF;
+    max-height: 600px;
+    height: auto;
+    margin: auto;
+    background-color: #000;
     box-shadow: 0px 0px 10px #2e2e2e;
-    border-radius: 5px;
+    border-radius: 20px;
+    color: white;
 }
 
 .display {
-    background-color: #a83737;
-    height: 200px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px; 
+    background-color: #131819;
+    height: 180px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.display #number{
+    font-size: 100px;
+    padding-left: 24px;
+}
+
+.info{
+    background-color: #131819;
+    padding-left: 10px;
+}
+
+.info #info1{
+    font-weight: normal;
+    font-size: 14px;
 }
 
 .wrapper-ligaDesliga {
-    background-color: #1671bd;
+    border-top: #131819 solid 10px;
     height: 80px;
+    font-size: 50px;
+}
+
+.quente{
+    margin-top: 5px;
+    display: flex;  
+    margin-left: 20px;
+    float: left;  
+}
+
+.frio{
+    margin-top: 5px;
+    margin-right: 20px;
+    float: right;
+    display: flex;
+}
+
+a{
+    text-decoration: none;
+    color: white;
 }
 
 .temperatura{
-    background-color: #e7098b;
+    border-top: #131819 solid 1px;
     height: 80px;
+    font-size: 60px;
+}
+
+.aumentar{
+    margin-top: 5px;
+    margin-left: 30px;
+    float: left; 
+}
+
+.textTemp{
+    position: absolute;
+    margin-top: 32px;
+    margin-left: 100px;
+    font-size: 16px;
+}
+
+.diminuir{
+    margin-right: 45px;
+    float: right;
+}
+
+.icon2{
+    height: 25px;
+    width: 25px;
 }
 
 .velocidades{
+    border-top: #131819 solid 1px;
     display: block;
-    background-color: #1cff4d;
-    height: 140px;
+    height: 150px;
+    font-size: 16px;
+}
+
+.radio{
+    margin-top: 27px;
+    margin-left: 20px;
 }
