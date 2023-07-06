@@ -1,21 +1,19 @@
 body{
-    background: #cccccc;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
 }
 
-.pagina-wrapper {
-    padding-top: 20px;
+a{
+    text-decoration: none;
+    color: white;
 }
 
 .estrutura {
-    display: block;
     max-width: 250px;
     max-height: 600px;
-    height: auto;
-    margin: auto;
     background-color: #000;
     box-shadow: 0px 0px 10px #2e2e2e;
-    border-radius: 20px;
+    border-radius: 25px;
     color: white;
 }
 
@@ -39,11 +37,6 @@ body{
     padding-left: 10px;
 }
 
-.info #info1{
-    font-weight: normal;
-    font-size: 14px;
-}
-
 .wrapper-ligaDesliga {
     border-top: #131819 solid 10px;
     height: 80px;
@@ -62,11 +55,6 @@ body{
     margin-right: 20px;
     float: right;
     display: flex;
-}
-
-a{
-    text-decoration: none;
-    color: white;
 }
 
 .temperatura{
@@ -93,14 +81,8 @@ a{
     float: right;
 }
 
-.icon2{
-    height: 25px;
-    width: 25px;
-}
-
 .velocidades{
     border-top: #131819 solid 1px;
-    display: block;
     height: 150px;
     font-size: 16px;
 }
