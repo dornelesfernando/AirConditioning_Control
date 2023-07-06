@@ -9,52 +9,50 @@
     <div class="pagina-wrapper">
         <form class="estrutura">
             <div class="display">
-                a
+                <h1 id="number">00</h1>
+                <h1>°C</h1>
+            </div>
+            <div class="info">   
+                Temperatura Ambiente:
+            </br>
+                Velocidade Atual:
             </div>
             <div class="wrapper-ligaDesliga">
-                <a href="/ligar">Ligar/Desligar</a><br>
+                <div class="quente">
+                    <a href="/quente">🔥</a><br>
+                </div>
+                <div class="frio">
+                    <a href="/frio">❄️</a><br>
+                </div>
             </div>
+
             <div class="temperatura">
-                <a href="/mais">Aumentar Temperatura</a><br>
-                <a href="/menos">Diminuir Temperatura</a><br>
+                <div class="aumentar">
+                    <a href="/mais">+</a><br>
+                </div>
+                <div class="diminuir">
+                    <a href="/menos">-</a><br>
+                </div>
+                <div class="textTemp">Temp.</div>
             </div>
+            
             <div class="velocidades">
+                <a href="\v1">
+                    <input  class="radio" type="radio" name="radio" id="radio1">
+                    Velocidade 01
+                </a></br>
 
-                <input type="radio" name="radio" id="radio1" onchange="redirecionar()">
-                <label for="radio1">Velocidade 01</label><br>
+                <a href="\v2">
+                    <input class="radio" type="radio" name="radio" id="radio2">
+                    Velocidade 02
+                </a></br>
 
-                <input type="radio" name="radio" id="radio2" onchange="redirecionar()">
-                <label for="radio2">Velocidade 02</label><br>  
-
-                <input type="radio" name="radio" id="radio3" onchange="redirecionar()">
-                <label for="radio3">Velocidade 03</label>
+                <a href="\v3">
+                    <input class="radio" type="radio" name="radio" id="radio3">
+                   Velocidade 03
+                </a>
             </div>
         </form>
     </div>
-
-    <script>
-        function redirecionar(){
-            var opcaoSelecionada = document.querySelector('input[name="radio"]:checked').id;
-            var url;
-
-            switch (opcaoSelecionada) {
-                case "radio1":
-                    url = "http://192.168.0.31/v1";
-                  break;
-
-                case "radio2":
-                    url = "http://192.168.0.31/v2";
-                  break;
-
-                case "radio3":
-                    url = "http://192.168.0.31/v3";
-                  break;
-            
-                default:
-                url = "http://192.168.0.31";
-            }
-            window.location.href = url;
-        }
-    </script>
 </body>
 </html>
