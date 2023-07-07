@@ -1,0 +1,77 @@
+body{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.wrapper-todo{
+    border-radius: 25px;
+    border: 1px solid #131819;
+    background-color: #131819;
+}
+
+.temperatura{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperatura #temp{
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.temperatura #celcius{
+    font-size: 30px;
+}
+
+.textInfo{
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.estado, .ajusteTemp{
+    background-color: black;
+    display: flex;
+    border-bottom: 1px solid #131819;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.quente, .frio, .aumentar, .diminuir{
+    width: 50%; 
+    font-size: 50px;
+}
+
+.quente{
+    border-right: 1px solid #131819;
+
+}
+
+.textTemp{
+    margin-top: 20px;
+}
+
+.velocidades{
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: black;
+    font-size: 16px;
+}
+
+.velocidades #radio1, #radio2, #radio3{
+    margin: 20px;
+}
