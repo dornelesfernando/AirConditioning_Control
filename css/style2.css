@@ -1,116 +1,200 @@
-body{
+* {
     margin: 0;
     padding: 0;
     color: white;
+    text-decoration: none;
+}
+
+body{
+    background-color: black;
+    background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h1{
-    margin: 0;
-    font-size: 20px;
-    font-weight: normal;
-}
-
-a{
-    text-decoration: none;
-    color: white;
-}
-
-.wrapper-todo{
-    height: auto;
-    border: 2px solid #131819;
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #131819;
+    height: 100%;
 }
 
-.temperatura{
-    margin-top: 30px;
+.display .temperatura{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 }
 
-.temperatura #temp{
+.display .temperatura #temp{
     font-size: 150px;
     font-weight: bold;
 }
 
-.temperatura #celcius{
+.display .temperatura #celcius{
     font-size: 30px;
     margin-bottom: 50px;
 }
 
-.textInfo{
-    flex-direction: column;
+.display .textInfo-box{
     display: flex;
-    margin-left: 30%;
+    flex-direction: column;
+    margin-left: 25%;
     margin-bottom: 20px;
 }
 
+.display .textInfo{
+    font-size: 1.5rem;
+}
+
 .estado, .ajusteTemp{
-    background-color: black;
+    padding: 5px;
+    height: 100px;
     display: flex;
-    border-bottom: 2px solid #131819;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    align-items: center;
     text-align: center;
+    background-color: black;
+    border-bottom: 2px solid #131819;
 }
 
-.quente, .frio, .aumentar, .diminuir{
-    width: 50%; 
-    font-size: 90px;
+.estado .icon-box {
+    width: 50%;
 }
 
-.quente{
-    border-right: 3px solid #131819;
-
+.estado .icon-box.right-border{
+    border-right: 1px solid #131819;
 }
 
-.textTemp{
-    margin-top: 45px;
+.estado .icon-box.left-border{
+    border-left: 1px solid #131819;
+}
+
+.estado .icon, .ajusteTemp .icon{
+    font-size: 100px;
+}
+
+.estado .icon-box .text-estado{
+    position: absolute;
+    margin: 40px 0;
+    font-size: 30px;
+    display: none;
+}
+
+.estado .icon-box .text-estado.text-quente{
+    background: linear-gradient(75deg, red 3.5%, yellow 95%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.estado .icon-box .text-estado.text-frio{
+    margin-left: 25px;
+    background: linear-gradient(75deg, white 3.5%, blue 95%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.estado .icon.frio:hover + .text-frio{
+    display: inline;
+}
+
+.estado .icon.quente:hover + .text-quente{
+    display: inline;
+}
+
+.ajusteTemp .info-temp{
+    font-size: 24px;
+}
+
+.ajust-left{
+    margin-left: 25px;
+}
+
+.ajust-right{
+    margin-right: 25px;
+}
+
+.ajusteTemp .aumentar .text-temp, .ajusteTemp .diminuir .text-temp{
+    position: absolute;
+    margin: 40px 0;
+    font-size: 30px;
+    display: none;
+}
+
+.ajusteTemp .icon.icon-aumentar:hover + .text-aumentar{
+    display: inline;
+}
+
+.ajusteTemp .icon.icon-diminuir:hover + .text-diminuir{
+    display: inline;
 }
 
 .velocidades{
     display: flex;
-    background-color: black;
-    font-size: 24px;
     justify-content: space-evenly;
+    align-items: center;
+    height: 135px;
+    font-size: 24px;
+    background-color: black;
 }
 
-.radio{
-    margin: 63px 10px;
+.velocidades .radio, .velocidades #ajust-radio{
+    margin-right: 10px;
+    cursor: pointer;
 }
-
+/*-----------------------------------------------------*/
 @media screen and (max-width: 600px){
-    h1{
-        font-size: 16px;
+    .display{
+        padding-top: 20px;
     }
 
-    .temperatura #temp{
-        font-size: 100px;
+    .display .textInfo-box{
+        margin-left: 25px;
     }
-    
-    .textInfo{
-        margin-left: 15%;
+
+    .display .textInfo{
+        font-size: 1.2rem;
     }
-    
-    .quente, .frio, .aumentar, .diminuir{
-        width: 50%; 
-        font-size: 70px;
+
+    .estado .icon.frio:hover + .text-frio,
+    .estado .icon.quente:hover + .text-quente,
+    .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,
+    .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {
+        display: none;
+        pointer-events: none;
     }
-    
-    .quente{
-        border-right: 2px solid #131819;
-    }
-    
-    .textTemp{
-        margin-top: 20px;
-    }
-    
+
     .velocidades{
-        display: block;
-        font-size: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        height: auto;
     }
 
-    .radio{
-        margin: 25px;
+    .velocidades .radio{
+        margin-right: 175px;
+    }
+
+    .velocidades #ajust-radio {
+        margin-top: 35px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px){
+    .display .textInfo-box{
+        margin-left: 25px;
+    }
+}
+
+@media screen and (min-width: 900px) and (max-width: 1100px){
+    .display .textInfo-box{
+        margin-left: 100px;
+    }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1300px){
+    .display .textInfo-box{
+        margin-left: 150px;
     }
 }
