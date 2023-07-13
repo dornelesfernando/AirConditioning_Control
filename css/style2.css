@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     color: white;
-    text-decoration: none;
 }
 
 body{
@@ -19,6 +18,12 @@ body{
     height: 100%;
 }
 
+.display #on-off{
+    position: absolute;
+    padding: 5%;
+    font-weight: normal;
+}
+
 .display .temperatura{
     display: flex;
     justify-content: center;
@@ -32,8 +37,19 @@ body{
 }
 
 .display .temperatura #celcius{
+    position: absolute;
     font-size: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 75px;
+    margin-left: 200px;
+    font-weight: normal;
+}
+
+.display #info-estado{
+    position: absolute;
+    font-size: 25px;
+    margin-bottom: -75px;
+    margin-left: 300px;
+    font-weight: normal;
 }
 
 .display .textInfo-box{
@@ -45,6 +61,13 @@ body{
 
 .display .textInfo{
     font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.display .textInfo-box .textInfo .refresh{
+    position: absolute;
+    margin-left: 15px;
+    color: blue;
 }
 
 .estado, .ajusteTemp{
@@ -145,7 +168,48 @@ body{
     cursor: pointer;
 }
 /*-----------------------------------------------------*/
-@media screen and (max-width: 600px){
+
+@media screen and (max-width: 450px){
+    .display #info-estado{
+        display: none;
+    }
+
+    .display{
+        padding-top: 20px;
+    }
+
+    .display .textInfo-box{
+        margin-left: 0;
+    }
+
+    .display .textInfo{
+        font-size: 1.2rem;
+    }
+
+    .estado .icon.frio:hover + .text-frio,
+    .estado .icon.quente:hover + .text-quente,
+    .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,
+    .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {
+        display: none;
+        pointer-events: none;
+    }
+
+    .velocidades{
+        flex-direction: column;
+        justify-content: space-between;
+        height: auto;
+    }
+
+    .velocidades .radio{
+        margin-right: 50px;
+    }
+
+    .velocidades #ajust-radio {
+        margin: 35px 15px 35px 0;
+    }
+}
+
+@media screen and (min-width:450px) and (max-width: 600px){
     .display{
         padding-top: 20px;
     }
@@ -177,13 +241,20 @@ body{
     }
 
     .velocidades #ajust-radio {
-        margin-top: 35px;
+        margin: 35px 15px 35px 0;
     }
 }
 
 @media screen and (min-width: 600px) and (max-width: 900px){
     .display .textInfo-box{
         margin-left: 25px;
+    }
+
+
+    .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,
+    .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {
+        display: none;
+        pointer-events: none;
     }
 }
 
