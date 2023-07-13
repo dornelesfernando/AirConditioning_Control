@@ -11,16 +11,22 @@
     <div class="main">
         <!-- Display -->
         <div class="display">
+            <h1 id="on-off">Ligado</h1>
+            <h1 id="on-off">Desligado</h1>
             <div class="temperatura">       
                 <h1 id="temp">00</h1>
                 <h1 id="celcius">°C</h1>
+                <h1 id="info-estado">Aquecer</h1>
+                <h1 id="info-estado">Refrigerar</h1>
             </div>
 
             <div class="textInfo-box">
-                <h1 class="textInfo">Temperatura Ambiente:</h1><br>
-                <h1 class="textInfo">Velocidade Atual: </h1>
+                <h1 class="textInfo">Temperatura Ambiente: ~°C <a href="#"><span class="material-symbols-sharp refresh">refresh</span></a></h1><br>
+                <h1 class="textInfo">Velocidade Atual: ~</h1>
             </div>
         </div>
+        <!-- End of Display -->      
+
         <!-- Estado -->        
         <div class="estado">
             <div class="icon-box right-border">
@@ -40,6 +46,7 @@
                 </a>
             </div>
         </div>
+        <!-- End of Estado -->   
 
         <!-- Ajuste de temperatura -->
         <div class="ajusteTemp">
@@ -61,13 +68,15 @@
                 </a>
             </div>
         </div>
+        <!-- End of Ajuste de temperatura -->
 
         <!-- Velocidades -->
         <div class="velocidades">
-            <a class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio1">Velocidade 01</a><br>
-            <a class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio2">Velocidade 02</a><br>
-            <a class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio3">Velocidade 03</a>
+            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio1">Velocidade 01</a>
+            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio2">Velocidade 02</a>
+            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio3">Velocidade 03</a>
         </div>
+        <!-- End of Velocidades -->
     </div>
 </body>
 </html>
