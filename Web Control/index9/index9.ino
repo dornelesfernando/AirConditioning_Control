@@ -61,6 +61,7 @@ int veloPadrao = 0;
 int controleLcd = 0;
 bool auxiliarDeInversao = false;
 int contadorInversao = 0;
+bool display = false;
 int guardaBotaoApertado = 0;
 /*
   A variável guardaBotaoApertado é uma variável que serve para que aconteça inversão
@@ -162,9 +163,21 @@ void loop() {
             client.print("<div class=\"display\">");
             if (ligado)
             {
-              client.print("<h1 id=\"on-off\">Ligado</h1>");
+              if (contadorInversao == 2)
+              {
+                client.print("<h1 id=\"on-off\">Alterando Estado</h1>");
+                display = true;
+              }else{
+                client.print("<h1 id=\"on-off\">Ligado</h1>");
+              }                         
             }else{
-              client.print("<h1 id=\"on-off\">Desligado</h1>");
+              if (contadorInversao == 2)
+              {
+                client.print("<h1 id=\"on-off\">Desligando</h1>");
+                display = true;
+              }else{
+                client.print("<h1 id=\"on-off\">Desligado</h1>");
+              }                
             }
             client.print("<div class=\"temperatura\">");
             client.print("<h1 id=\"temp\">");
@@ -220,11 +233,7 @@ void loop() {
             }
             client.print("</h1>");
             client.print("</div>");
-            client.print("</div>");
-            if (auxiliarDeInversao)
-            {            
-              client.print("auxiliarDeInversao");
-            }                        
+            client.print("</div>");                     
             client.print("<div class=\"estado\">");
             client.print("<div class=\"icon-box right-border\">");
             client.print("<a href=\"/quente\">");
@@ -308,8 +317,8 @@ void loop() {
         } else if (c != '\r') {  // if you got anything else but a carriage return character,
           currentLine += c;      // add it to the end of the currentLine
         }
-        //*******************************************************************
-
+        //*******************************************************************        
+        
         if (currentLine.endsWith("GET /v1"))
         {
           statsV1 = true;
@@ -355,8 +364,18 @@ void loop() {
               temperaturaDesejadaQuente--;
             }
         }
-
-        inversao();
+        if (contadorInversao > 0){
+          if (contadorInversao == 1){ 
+            contadorInversao++;
+          }
+          if(contadorInversao == 2 && display == true){
+            Serial.println("localização");
+            inversao();
+            contadorInversao = 0;
+            display = false;
+          }
+        }
+        
         varLigaDesliga();
 
         //*******************************************************************
@@ -576,6 +595,7 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
     {
       if (ligado) {
         auxiliarDeInversao = true;  //Ativa a condição para a Função de intervalo
+        contadorInversao = 1;
       }
       ligado = !ligado;  //Desliga o sistema
       quente = false;
@@ -591,6 +611,7 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
         if (ligado)
         {
           auxiliarDeInversao = true;
+          contadorInversao = 1;
         }
         quente = true;
       }
@@ -611,6 +632,7 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
       if (ligado)
       {
         auxiliarDeInversao = true;  //Ativa a condição para a Função de intervalo
+        contadorInversao = 1;
       }
 
       ligado = !ligado;  //Desliga o sisema
@@ -628,6 +650,7 @@ void varLigaDesliga()  //Função utilizada para controlar a ativação e desati
         if (ligado)
         {
           auxiliarDeInversao = true;
+          contadorInversao = 1;
         }
         frio = true;
       }
@@ -647,39 +670,35 @@ void inversao()  //Função de Intervalo usada para que não haja a ativação e
 
   if (auxiliarDeInversao)
   {
-    if (contadorInversao == 1)
+    digitalWrite(ligaCompressor, LOW);
+
+    unsigned long tempoEsperaInversao = 10000; //1 minuto
+    unsigned long tempoInicialInversao = millis();
+    unsigned int contagemRegressiva = 10;
+
+    auxiliarDeInversao = false;  //Desativa a condição para a Função de intervalo
+    controleLcd = 0;  //Definindo como 0 para que possa ser executado posteriormente
+
+    if (ligado)
     {
-      digitalWrite(ligaCompressor, LOW);
+      Serial.print("Invertendo Estado");
+    }
 
-      unsigned long tempoEsperaInversao = 10000; //1 minuto
-      unsigned long tempoInicialInversao = millis();
-      unsigned int contagemRegressiva = 10;
+    if (ligado == false)
+    {
+      Serial.print("Desligando");
+    }
 
-      auxiliarDeInversao = false;  //Desativa a condição para a Função de intervalo
-      controleLcd = 0;  //Definindo como 0 para que possa ser executado posteriormente
+    Serial.print("Aguarde: ");
 
-      if (ligado)
+    while (millis() - tempoInicialInversao < tempoEsperaInversao)
+    {
+      unsigned int segundosRestantes = (tempoEsperaInversao - (millis() - tempoInicialInversao)) / 1000;
+      if (segundosRestantes != contagemRegressiva)
       {
-        Serial.print("Invertendo Estado");
-      }
-
-      if (ligado == false)
-      {
-        Serial.print("Desligando");
-      }
-
-      Serial.print("Aguarde: ");
-
-      while (millis() - tempoInicialInversao < tempoEsperaInversao)
-      {
-        unsigned int segundosRestantes = (tempoEsperaInversao - (millis() - tempoInicialInversao)) / 1000;
-        if (segundosRestantes != contagemRegressiva)
-        {
-          contagemRegressiva = segundosRestantes;
-          Serial.println(contagemRegressiva);
-        }
+        contagemRegressiva = segundosRestantes;
+        Serial.println(contagemRegressiva);
       }
     }
-    if (contadorInversao == 0){contadorInversao = 1;}else{contadorInversao = 1;}
   }
 }
