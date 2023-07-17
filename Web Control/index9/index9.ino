@@ -362,8 +362,6 @@ void loop()
         {                   // if you got anything else but a carriage return character,
           currentLine += c; // add it to the end of the currentLine
         }
-        //*******************************************************************
-
         if (ligado)
         {
           if (currentLine.endsWith("GET /v1"))
@@ -416,8 +414,6 @@ void loop()
         }
         inversao();
         varLigaDesliga();
-
-        //*******************************************************************
       }
     }
     // termina a conexão com o cliente
@@ -468,11 +464,6 @@ void loop()
       // Serial.println(temp1_evaporador);
       // Serial.print("Temperatura Ambiente: ");
       // Serial.println(temp2_ambiente);
-      // Serial.println("----------------------------");
-      // Serial.print("S.D.A Quente: ");
-      // Serial.println(somaDiferencaAmbienteQuente);
-      // Serial.print("S.D.A Frio: ");
-      // Serial.println(somaDiferencaAmbienteFrio);
     }
 
     // Condições de ativação e desativação das velocidaddes fazendo que apenas 1 velocidade esteja ativa por vez
