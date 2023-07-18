@@ -1,6 +1,6 @@
 #include <WiFi.h>
 
-// Bibliotecas para o uso do sensor de temperartura 18b20
+// Bibliotecas para o uso do sensor de temperatura 18b20
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
@@ -11,10 +11,10 @@
 #define velocidade2 18    // Relé 4 - Controla o ventilador interno na velocidade 2
 #define velocidade3 17    // Relé 5 - Controla o ventilador interno na velocidade 3
 
-// Definição da variável e sua respectiva porta responsável pelo sensor de temperartura 18b20
-#define sensorTemperatura 14
+// Definição da variável e sua respectiva porta responsável pelo sensor de temperatura 18b20
+#define sensorTemperatura 21
 
-// Variáveis responsaveis por cuidar do estado do compressor
+// Variáveis responsáveis por cuidar do estado do compressor
 bool quente = false;
 bool frio = false;
 
@@ -123,25 +123,25 @@ void setup()
 
 void loop()
 {
-  WiFiClient client = server.available(); // listen for incoming clients
+  WiFiClient client = server.available(); // escuta os clientes que chegam
   if (client)
-  {                                // if you get a client,
-    Serial.println("New Client."); // print a message out the serial port
-    currentLine = "";              // make a String to hold incoming data from the client
+  {                                // se você conseguir um cliente,
+    Serial.println("New Client."); // imprime uma mensagem pela porta serial
+    currentLine = "";              // faz uma String para manter os dados recebidos do cliente
     while (client.connected())
-    { // loop while the client's connected
+    { // loop enquanto o cliente está conectado
       if (client.available())
-      {                         // if there's bytes to read from the client,
-        char c = client.read(); // read a byte, then
-        Serial.write(c);        // print it out the serial monitor
+      {                         // se houver bytes para ler do cliente,
+        char c = client.read(); // lê um byte, então
+        Serial.write(c);        // imprime no monitor serial
         if (c == '\n')
-        { // if the byte is a newline character
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
+        { // se o byte for um caractere de nova linha
+          // se a linha atual estiver em branco, você terá dois caracteres de nova linha em uma linha.
+          // esse é o fim da solicitação HTTP do cliente, então envie uma resposta:
           if (currentLine.length() == 0)
           {
-            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
-            // and a content-type so the client knows what's coming, then a blank line:
+            // Os cabeçalhos HTTP sempre começam com um código de resposta (por exemplo, HTTP/1.1 200 OK)
+            // e um tipo de conteúdo para que o cliente saiba o que está por vir, então uma linha em branco:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
             client.println();
@@ -154,7 +154,7 @@ void loop()
             client.print("<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\" />");
 
             // configuração de estilo do site
-            client.print("<style type=\"text/css\">* { margin: 0; padding: 0; color: white; }  body{ background-color: black; background-size: cover; font-family: Arial, Helvetica, sans-serif; }  .main { display: flex; flex-direction: column; justify-content: space-between; background-color: #131819; height: 100%; }  .display #on-off{ position: absolute; padding: 5%; font-weight: normal; }  .display .temperatura{ display: flex; justify-content: center; align-items: center; margin-top: 30px; }  .display .temperatura #temp{ font-size: 150px; font-weight: bold; }  .display .temperatura #celcius{ position: absolute; font-size: 30px; margin-bottom: 75px; margin-left: 200px; font-weight: normal; }  .display #info-estado{ position: absolute; font-size: 25px; margin-bottom: -75px; margin-left: 300px; font-weight: normal; }  .display .textInfo-box{ display: flex; flex-direction: column; margin-left: 25%; margin-bottom: 20px; }  .display .textInfo{ font-size: 1.5rem; font-weight: normal; }  .display .textInfo-box .textInfo .refresh{position: absolute;margin-left: 15px;color: blue;} .estado, .ajusteTemp{ padding: 5px; height: 100px; display: flex; justify-content: space-evenly; align-items: center; text-align: center; background-color: black; border-bottom: 2px solid #131819; }  .estado .icon-box { width: 50%; }  .estado .icon-box.right-border{ border-right: 1px solid #131819; }  .estado .icon-box.left-border{ border-left: 1px solid #131819; }  .estado .icon, .ajusteTemp .icon{ font-size: 100px; }  .estado .icon-box .text-estado{ position: absolute; margin: 40px 0; font-size: 30px; display: none; }  .estado .icon-box .text-estado.text-quente{ background: linear-gradient(75deg, red 3.5%, yellow 95%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  .estado .icon-box .text-estado.text-frio{ margin-left: 25px; background: linear-gradient(75deg, white 3.5%, blue 95%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  .estado .icon.frio:hover + .text-frio{ display: inline; }  .estado .icon.quente:hover + .text-quente{ display: inline; }  .ajusteTemp .info-temp{ font-size: 24px; }  .ajust-left{ margin-left: 25px; }  .ajust-right{ margin-right: 25px; }  .ajusteTemp .aumentar .text-temp, .ajusteTemp .diminuir .text-temp{ position: absolute; margin: 40px 0; font-size: 30px; display: none; }  .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar{ display: inline; }  .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir{ display: inline; }  .velocidades{ display: flex; justify-content: space-evenly; align-items: center; height: 135px; font-size: 24px; background-color: black; }  .velocidades .radio, .velocidades #ajust-radio{ margin-right: 10px; cursor: pointer; } @media screen and (max-width: 450px){ .display #info-estado{ display: none; }  .display{ padding-top: 20px; }  .display .textInfo-box{ margin-left: 0; }  .display .textInfo{ font-size: 1.2rem; }  .estado .icon.frio:hover + .text-frio, .estado .icon.quente:hover + .text-quente, .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar, .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir { display: none; pointer-events: none; }  .velocidades{ flex-direction: column; justify-content: space-between; height: auto; }  .velocidades .radio{ margin-right: 50px; }  .velocidades #ajust-radio { margin: 35px 15px 35px 0; } }  @media screen and (min-width:450px) and (max-width: 600px){ .display{ padding-top: 20px; }  .display .textInfo-box{ margin-left: 25px; }  .display .textInfo{ font-size: 1.2rem; }  .estado .icon.frio:hover + .text-frio, .estado .icon.quente:hover + .text-quente, .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,.ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {display: none;pointer-events: none;}.velocidades{flex-direction: column;justify-content: space-between;height: auto;}.velocidades .radio{margin-right: 175px;}.velocidades #ajust-radio {margin: 35px 15px 35px 0;}}@media screen and (min-width: 600px) and (max-width: 900px){.display .textInfo-box{margin-left: 25px;}.ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,.ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {display: none;pointer-events: none;}}@media screen and (min-width: 900px) and (max-width: 1100px){.display .textInfo-box{margin-left: 100px;}}@media screen and (min-width: 1100px) and (max-width: 1300px){.display .textInfo-box{margin-left: 150px;}}</style>");
+            client.print("<style type=\"text/css\">* { margin: 0; padding: 0; color: white; }  body{ background-color: black; background-size: cover; font-family: Arial, Helvetica, sans-serif; }  .main { display: flex; flex-direction: column; justify-content: space-between; background-color: #131819; height: 100%; }  .display #on-off{ position: absolute; padding: 5%; font-weight: normal; }  .display .temperatura{ display: flex; justify-content: center; align-items: center; margin-top: 30px; }  .display .temperatura #temp{ font-size: 150px; font-weight: bold; }  .display .temperatura #cesius{ position: absolute; font-size: 30px; margin-bottom: 75px; margin-left: 200px; font-weight: normal; }  .display #info-estado{ position: absolute; font-size: 25px; margin-bottom: -75px; margin-left: 300px; font-weight: normal; }  .display .textInfo-box{ display: flex; flex-direction: column; margin-left: 25%; margin-bottom: 20px; }  .display .textInfo{ font-size: 1.5rem; font-weight: normal; }  .display .textInfo-box .textInfo .refresh{position: absolute;margin-left: 15px;color: blue;} .estado, .ajusteTemp{ padding: 5px; height: 100px; display: flex; justify-content: space-evenly; align-items: center; text-align: center; background-color: black; border-bottom: 2px solid #131819; }  .estado .icon-box { width: 50%; }  .estado .icon-box.right-border{ border-right: 1px solid #131819; }  .estado .icon-box.left-border{ border-left: 1px solid #131819; }  .estado .icon, .ajusteTemp .icon{ font-size: 100px; }  .estado .icon-box .text-estado{ position: absolute; margin: 40px 0; font-size: 30px; display: none; }  .estado .icon-box .text-estado.text-quente{ background: linear-gradient(75deg, red 3.5%, yellow 95%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  .estado .icon-box .text-estado.text-frio{ margin-left: 25px; background: linear-gradient(75deg, white 3.5%, blue 95%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  .estado .icon.frio:hover + .text-frio{ display: inline; }  .estado .icon.quente:hover + .text-quente{ display: inline; }  .ajusteTemp .info-temp{ font-size: 24px; }  .ajust-left{ margin-left: 25px; }  .ajust-right{ margin-right: 25px; }  .ajusteTemp .aumentar .text-temp, .ajusteTemp .diminuir .text-temp{ position: absolute; margin: 40px 0; font-size: 30px; display: none; }  .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar{ display: inline; }  .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir{ display: inline; }  .velocidades{ display: flex; justify-content: space-evenly; align-items: center; height: 135px; font-size: 24px; background-color: black; }  .velocidades .radio, .velocidades .ajust-radio{ margin-right: 10px; cursor: pointer; } @media screen and (max-width: 450px){ .display #info-estado{ display: none; }  .display{ padding-top: 20px; }  .display .textInfo-box{ margin-left: 0; }  .display .textInfo{ font-size: 1.2rem; }  .estado .icon.frio:hover + .text-frio, .estado .icon.quente:hover + .text-quente, .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar, .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir { display: none; pointer-events: none; }  .velocidades{ flex-direction: column; justify-content: space-between; height: auto; }  .velocidades .radio{ margin-right: 50px; }  .velocidades .ajust-radio { margin: 35px 15px 35px 0; } }  @media screen and (min-width:450px) and (max-width: 600px){ .display{ padding-top: 20px; }  .display .textInfo-box{ margin-left: 25px; }  .display .textInfo{ font-size: 1.2rem; }  .estado .icon.frio:hover + .text-frio, .estado .icon.quente:hover + .text-quente, .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,.ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {display: none;pointer-events: none;}.velocidades{flex-direction: column;justify-content: space-between;height: auto;}.velocidades .radio{margin-right: 175px;}.velocidades .ajust-radio {margin: 35px 15px 35px 0;}}@media screen and (min-width: 600px) and (max-width: 900px){.display .textInfo-box{margin-left: 25px;}.ajusteTemp .icon.icon-aumentar:hover + .text-aumentar,.ajusteTemp .icon.icon-diminuir:hover + .text-diminuir {display: none;pointer-events: none;}}@media screen and (min-width: 900px) and (max-width: 1100px){.display .textInfo-box{margin-left: 100px;}}@media screen and (min-width: 1100px) and (max-width: 1300px){.display .textInfo-box{margin-left: 150px;}}</style>");
 
             client.print("<title>Controle Ar Condicionado</title>");
             client.print("</head>");
@@ -189,7 +189,7 @@ void loop()
               client.print("00");
             }
             client.print("</h1>");
-            client.print("<h1 id=\"celcius\">°C</h1>");
+            client.print("<h1 id=\"celsius\">°C</h1>");
             if (ligado)
             {
               if (quente)
@@ -304,12 +304,12 @@ void loop()
             {
               if (radio1 == 1)
               {
-                client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio1\" checked>");
+                client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio1\" checked>");
               }
             }
             else
             {
-              client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio1\">");
+              client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio1\">");
             }
             client.print("Velocidade 01");
             client.print("</a>");
@@ -318,12 +318,12 @@ void loop()
             {
               if (radio2 == 1)
               {
-                client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio2\" checked>");
+                client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio2\" checked>");
               }
             }
             else
             {
-              client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio2\" >");
+              client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio2\" >");
             }
             client.print("Velocidade 02");
             client.print("</a>");
@@ -332,12 +332,12 @@ void loop()
             {
               if (radio3 == 1)
               {
-                client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio3\" checked>");
+                client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio3\" checked>");
               }
             }
             else
             {
-              client.print("<input id=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio3\">");
+              client.print("<input class=\"ajust-radio\" type=\"radio\" name=\"radio\" id=\"radio3\">");
             }
             client.print("Velocidade 03");
             client.print("</a>");
@@ -350,17 +350,17 @@ void loop()
             // A resposta HTTP termina com outra linha em branco:
             client.println();
 
-            // break out of the while loop:
+            // sai do loop while:
             break;
           }
           else
-          { // if you got a newline, then clear currentLine:
+          { // se você tem uma nova linha, limpe currentLine:
             currentLine = "";
           }
         }
         else if (c != '\r')
-        {                   // if you got anything else but a carriage return character,
-          currentLine += c; // add it to the end of the currentLine
+        {                   // se você tiver qualquer outra coisa além de um caractere de retorno de linha,
+          currentLine += c; // adicioná-lo ao final do currentLine
         }
         if (ligado)
         {
@@ -466,7 +466,7 @@ void loop()
       // Serial.println(temp2_ambiente);
     }
 
-    // Condições de ativação e desativação das velocidaddes fazendo que apenas 1 velocidade esteja ativa por vez
+    // Condições de ativação e desativação das velocidades fazendo que apenas 1 velocidade esteja ativa por vez
     if (statsV1)
     {
       controlAtualiza = true;
@@ -693,13 +693,13 @@ void varLigaDesliga() // Função utilizada para controlar a ativação e desati
       {
         frio = true;
       }
-      ligado = !ligado; // Desliga o sisema
+      ligado = !ligado; // Desliga o sistema
     }
     else
     {
       if (guardaBotaoApertado == 0)
       {
-        ligado = !ligado; // Liga o sisema
+        ligado = !ligado; // Liga o sistema
         frio = true;      // Define o estado do compressor como frio
       }
       else
