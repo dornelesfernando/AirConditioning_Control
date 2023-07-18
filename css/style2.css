@@ -1,15 +1,18 @@
+/* Configurações gerais para todos os elementos */
 * {
     margin: 0;
     padding: 0;
     color: white;
 }
 
+/* Estilo do corpo do documento */
 body{
     background-color: black;
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Estilo para o contêiner principal */
 .main {
     display: flex;
     flex-direction: column;
@@ -18,12 +21,19 @@ body{
     height: 100%;
 }
 
-.display #on-off{
-    position: absolute;
-    padding: 5%;
+/* Ajustes para parágrafos dentro do elemento com classe 'display' */
+.display p{
     font-weight: normal;
 }
 
+/* Estilos para o elemento com id 'on-off' dentro do elemento com classe 'display' */
+.display #on-off{
+    position: absolute;
+    padding: 5%;
+    font-size: 25px;
+}
+
+/* Estilos para a seção de temperatura */
 .display .temperatura{
     display: flex;
     justify-content: center;
@@ -31,27 +41,29 @@ body{
     margin-top: 30px;
 }
 
+/* Estilos para a temperatura em si */
 .display .temperatura #temp{
     font-size: 150px;
     font-weight: bold;
 }
 
-.display .temperatura #celcius{
+/* Estilos para o símbolo de grau Celsius */
+.display .temperatura #celsius{
     position: absolute;
     font-size: 30px;
     margin-bottom: 75px;
     margin-left: 200px;
-    font-weight: normal;
 }
 
+/* Estilos para o texto 'Estado' */
 .display #info-estado{
     position: absolute;
     font-size: 25px;
     margin-bottom: -75px;
     margin-left: 300px;
-    font-weight: normal;
 }
 
+/* Estilos para a caixa de informações de texto */
 .display .textInfo-box{
     display: flex;
     flex-direction: column;
@@ -59,17 +71,19 @@ body{
     margin-bottom: 20px;
 }
 
+/* Estilos para o texto informativo */
 .display .textInfo{
     font-size: 1.5rem;
-    font-weight: normal;
 }
 
+/* Estilos para o ícone de atualização (refresh) */
 .display .textInfo-box .textInfo .refresh{
     position: absolute;
     margin-left: 15px;
     color: blue;
 }
 
+/* Estilos para a seção de 'Estado' e 'Ajuste de temperatura' */
 .estado, .ajusteTemp{
     padding: 5px;
     height: 100px;
@@ -81,22 +95,27 @@ body{
     border-bottom: 2px solid #131819;
 }
 
+/* Estilos para a caixa de ícone do 'Estado' */
 .estado .icon-box {
     width: 50%;
 }
 
+/* Estilos para a borda direita da caixa de ícone do 'Estado' */
 .estado .icon-box.right-border{
     border-right: 1px solid #131819;
 }
 
+/* Estilos para a borda esquerda da caixa de ícone do 'Estado' */
 .estado .icon-box.left-border{
     border-left: 1px solid #131819;
 }
 
+/* Estilos para os ícones de 'Estado' e 'Ajuste de temperatura' */
 .estado .icon, .ajusteTemp .icon{
     font-size: 100px;
 }
 
+/* Estilos para o texto do 'Estado' */
 .estado .icon-box .text-estado{
     position: absolute;
     margin: 40px 0;
@@ -104,6 +123,7 @@ body{
     display: none;
 }
 
+/* Estilos específicos para o texto do 'Estado' quando está quente */
 .estado .icon-box .text-estado.text-quente{
     background: linear-gradient(75deg, red 3.5%, yellow 95%);
     background-clip: text;
@@ -111,6 +131,7 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
+/* Estilos específicos para o texto do 'Estado' quando está frio */
 .estado .icon-box .text-estado.text-frio{
     margin-left: 25px;
     background: linear-gradient(75deg, white 3.5%, blue 95%);
@@ -119,26 +140,32 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
+/* Estilos para mostrar o texto do 'Estado' quando o ícone de frio é destacado (hover) */
 .estado .icon.frio:hover + .text-frio{
     display: inline;
 }
 
+/* Estilos para mostrar o texto do 'Estado' quando o ícone de quente é destacado (hover) */
 .estado .icon.quente:hover + .text-quente{
     display: inline;
 }
 
+/* Estilos para o texto 'temp.' na seção de ajuste de temperatura */
 .ajusteTemp .info-temp{
     font-size: 24px;
 }
 
+/* Estilos para o ícone de seta à esquerda na seção de ajuste de temperatura */
 .ajust-left{
     margin-left: 25px;
 }
 
+/* Estilos para o ícone de seta à direita na seção de ajuste de temperatura */
 .ajust-right{
     margin-right: 25px;
 }
 
+/* Estilos para o texto de aumento e diminuição na seção de ajuste de temperatura */
 .ajusteTemp .aumentar .text-temp, .ajusteTemp .diminuir .text-temp{
     position: absolute;
     margin: 40px 0;
@@ -146,14 +173,17 @@ body{
     display: none;
 }
 
+/* Estilos para mostrar o texto de aumento quando o ícone de aumento é destacado (hover) */
 .ajusteTemp .icon.icon-aumentar:hover + .text-aumentar{
     display: inline;
 }
 
+/* Estilos para mostrar o texto de diminuição quando o ícone de diminuição é destacado (hover) */
 .ajusteTemp .icon.icon-diminuir:hover + .text-diminuir{
     display: inline;
 }
 
+/* Estilos para a seção de velocidades */
 .velocidades{
     display: flex;
     justify-content: space-evenly;
@@ -163,12 +193,15 @@ body{
     background-color: black;
 }
 
-.velocidades .radio, .velocidades #ajust-radio{
+/* Estilos para os elementos de rádio na seção de velocidades */
+.velocidades .radio, .velocidades .ajust-radio{
     margin-right: 10px;
     cursor: pointer;
 }
-/*-----------------------------------------------------*/
 
+/* Media queries para ajustar o layout em diferentes tamanhos de tela */
+
+/* Estilos específicos para telas com largura máxima de 450px */
 @media screen and (max-width: 450px){
     .display #info-estado{
         display: none;
@@ -204,11 +237,12 @@ body{
         margin-right: 50px;
     }
 
-    .velocidades #ajust-radio {
+    .velocidades .ajust-radio {
         margin: 35px 15px 35px 0;
     }
 }
 
+/* Estilos específicos para telas com largura mínima de 450px e máxima de 600px */
 @media screen and (min-width:450px) and (max-width: 600px){
     .display{
         padding-top: 20px;
@@ -240,11 +274,12 @@ body{
         margin-right: 175px;
     }
 
-    .velocidades #ajust-radio {
+    .velocidades .ajust-radio {
         margin: 35px 15px 35px 0;
     }
 }
 
+/* Estilos específicos para telas com largura mínima de 600px e máxima de 900px */
 @media screen and (min-width: 600px) and (max-width: 900px){
     .display .textInfo-box{
         margin-left: 25px;
@@ -258,12 +293,14 @@ body{
     }
 }
 
+/* Estilos específicos para telas com largura mínima de 900px e máxima de 1100px */
 @media screen and (min-width: 900px) and (max-width: 1100px){
     .display .textInfo-box{
         margin-left: 100px;
     }
 }
 
+/* Estilos específicos para telas com largura mínima de 1100px e máxima de 1300px */
 @media screen and (min-width: 1100px) and (max-width: 1300px){
     .display .textInfo-box{
         margin-left: 150px;
