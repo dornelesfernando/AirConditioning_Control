@@ -1,82 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="../css/style2.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="../css/style2.css" />
     <title>Controle</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="main">
-        <!-- Display -->
-        <div class="display">
-            <h1 id="on-off">Ligado</h1>
-            <h1 id="on-off">Desligado</h1>
-            <div class="temperatura">       
-                <h1 id="temp">00</h1>
-                <h1 id="celcius">°C</h1>
-                <h1 id="info-estado">Aquecer</h1>
-                <h1 id="info-estado">Refrigerar</h1>
-            </div>
-
-            <div class="textInfo-box">
-                <h1 class="textInfo">Temperatura Ambiente: ~°C <a href="#"><span class="material-symbols-sharp refresh">refresh</span></a></h1><br>
-                <h1 class="textInfo">Velocidade Atual: ~</h1>
-            </div>
+      <!-- Display -->
+      <div class="display">
+        <p id="on-off">Info</p>
+        <div class="temperatura">
+          <h1 id="temp">00</h1>
+          <p id="celsius">°C</p>
+          <p id="info-estado">Estado</p>
         </div>
-        <!-- End of Display -->      
 
-        <!-- Estado -->        
-        <div class="estado">
-            <div class="icon-box right-border">
-                <a href="#">
-                    <span class="material-symbols-sharp icon quente">
-                        local_fire_department
-                    </span>
-                    <span class="text-estado text-quente">Quente</span>
-                </a>
-            </div>
-            <div class="icon-box left-border">
-                <a href="#">
-                    <span class="material-symbols-sharp icon frio">
-                        ac_unit
-                    </span>
-                    <span class="text-estado text-frio">Frio</span>
-                </a>
-            </div>
+        <div class="textInfo-box">
+          <p class="textInfo"> Temperatura Ambiente: ~°C <a href="#" aria-label="Atualizar temperatura"> <span class="material-symbols-sharp refresh">refresh</span></a></p>
+          <p class="textInfo">Velocidade Atual: ~</p>
         </div>
-        <!-- End of Estado -->   
+      </div>
+      <!-- End of Display -->
 
-        <!-- Ajuste de temperatura -->
-        <div class="ajusteTemp">
-            <div class="aumentar">
-                <a href="#">
-                    <span class="material-symbols-sharp icon ajust-left icon-aumentar">
-                    add
-                    </span>
-                    <span class="text-temp text-aumentar">Aumentar</span>
-                </a>
-            </div>
-            <div class="info-temp">temp.</div>
-            <div class="diminuir">
-                <a href="#">
-                    <span class="material-symbols-sharp icon ajust-right icon-diminuir">
-                        remove
-                    </span>
-                    <span class="text-temp text-diminuir">Diminuir</span>
-                </a>
-            </div>
+      <!-- Estado -->
+      <div class="estado">
+        <div class="icon-box right-border">
+          <a href="#" onclick="alert('Desligando/Alterando estado')" aria-label="Modo Quente" >
+            <span class="material-symbols-sharp icon quente">
+              local_fire_department
+            </span>
+            <span class="text-estado text-quente">Quente</span>
+          </a>
         </div>
-        <!-- End of Ajuste de temperatura -->
+        <div class="icon-box left-border">
+          <a href="#" onclick="alert('Desligando/Alterando estado')" aria-label="Modo Frio">
+            <span class="material-symbols-sharp icon frio"> ac_unit </span>
+            <span class="text-estado text-frio">Frio</span>
+          </a>
+        </div>
+      </div>
+      <!-- End of Estado -->
 
-        <!-- Velocidades -->
-        <div class="velocidades">
-            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio1">Velocidade 01</a>
-            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio2">Velocidade 02</a>
-            <a href="#" class="radio"><input id="ajust-radio" type="radio" name="radio" id="radio3">Velocidade 03</a>
+      <!-- Ajuste de temperatura -->
+      <div class="ajusteTemp">
+        <div class="aumentar">
+          <a href="#" aria-label="Aumentar Temperatura">
+            <span class="material-symbols-sharp icon ajust-left icon-aumentar">
+              add
+            </span>
+            <span class="text-temp text-aumentar">Aumentar</span>
+          </a>
         </div>
-        <!-- End of Velocidades -->
+        <div class="info-temp">temp.</div>
+        <div class="diminuir">
+          <a href="#" aria-label="Diminuir Temperatura">
+            <span class="material-symbols-sharp icon ajust-right icon-diminuir">
+              remove
+            </span>
+            <span class="text-temp text-diminuir">Diminuir</span>
+          </a>
+        </div>
+      </div>
+      <!-- End of Ajuste de temperatura -->
+
+      <!-- Velocidades -->
+      <div class="velocidades">
+        <a href="#" class="radio">
+          <input class="ajust-radio" type="radio" name="radio" id="radio1"/>Velocidade 01</a>
+        <a href="#" class="radio">
+          <input class="ajust-radio" type="radio" name="radio" id="radio2"/>Velocidade 02</a>
+        <a href="#" class="radio">
+          <input class="ajust-radio" type="radio" name="radio" id="radio3"/>Velocidade 03</a>
+      </div>
+      <!-- End of Velocidades -->
     </div>
-</body>
+  </body>
 </html>
