@@ -17,8 +17,8 @@
 #define velocidade2 21
 #define velocidade3 19
 
-const char* ssid = "USINA 01";
-const char* password = "usina105601";
+const char *ssid = "ssid_rede";
+const char *password = "password";
 
 WiFiServer server(80);
 
