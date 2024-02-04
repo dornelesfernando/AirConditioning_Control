@@ -22,8 +22,8 @@ unsigned long previousMillis = 0, interval = 5000, previousMillis2 = 0, interval
 
 String currentLine = ""; // make a String to hold incoming data from the client
 
-const char *ssid = "USINA 01";
-const char *password = "usina105601";
+const char *ssid = "ssid_rede";
+const char *password = "password";
 
 // Define o sensor
 OneWire oneWire(sensorTemperatura);
