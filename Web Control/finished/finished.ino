@@ -74,8 +74,8 @@ unsigned long interval2 = 60000;
 
 String currentLine = ""; // make a String to hold incoming data from the client
 
-const char *ssid = "NOME DO SEU WIFI";
-const char *password = "SENHA DO SEU WIFI";
+const char *ssid = "ssid_rede";
+const char *password = "password";
 
 // Define o sensor
 OneWire oneWire(sensorTemperatura);
